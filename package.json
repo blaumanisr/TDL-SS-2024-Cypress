@@ -1,0 +1,18 @@
+{
+  "name": "rudolfs-summer-school",
+  "version": "1.0.0",
+  "description": "Cypress practice project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Rudolfs Blaumanis",
+  "license": "ISC",
+  "dependencies": {
+    "cypress": "^13.13.1",
+    "mochawesome": "^7.1.3"
+  },
+  "devDependencies": {
+    "prettier": "^3.3.3"
+  }
+}

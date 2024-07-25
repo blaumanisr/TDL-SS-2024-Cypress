@@ -45,7 +45,7 @@ Now let's try something like this
 console.log(comparisonNumber1 == "3"); // Expected: true;
 Here you can see that JS compares the values as if they were both numbers but what if we want to really know that number 3 is or is not equal to string "3"? 
 Then we use comparison for value and type === 
-console.log(comparisonNumber1 === "3"); // Expected false; because === checks equal value and equal type
+console.log(comparisonNumber1 === "3"); // Expected false; because === checks value and type (strict equality)
 
 // != not equal
 // !== not equal value or not equal type
@@ -81,10 +81,21 @@ console.log(x * y); // Expected output: 6
 // const x = true;
 // console.log(!x);
 
-
 // --- 3 Comments ---
 
 // --- 4 Conditionals (if statement) ---
+function testNum(a) {
+  let result;
+  if (a > 0) {
+    result = 'positive';
+  } else {
+    result = 'NOT positive';
+  }
+  return result;
+}
+
+console.log(testNum(-5));
+// Expected output: "NOT positive"
 
 // --- 5 Classes, object oriented programming ---
 /*
@@ -103,8 +114,7 @@ People say that a class serves as a blueprint from which we can make many object
 if we want to but they still are based on the same blueprint.
 /*
 
-
-// -- Exercises for advanced ---
+// --- Exercises for advanced ---
 // Return a random date of birth for someone between the ages of 30 and 65 in the format MM/DD/YYYY
 
 // File Manager Application

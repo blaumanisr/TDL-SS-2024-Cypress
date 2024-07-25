@@ -1,31 +1,24 @@
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+const API_URL = 'https://coe-webstore-api.tdlbox.com';
 
 Cypress.Commands.add('getByTestId', (selector, ...args) => {
   return cy.get(`[data-testid=${selector}]`, ...args);
+});
+
+Cypress.Commands.add('loginApi', (email, password) => {
+  cy.request({
+    method: 'POST',
+    followRedirect: true,
+    url: API_URL + '/store/auth/token',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: {
+      email: 'rudolfs.blaumanis@testdevlab.com',
+      password: 'test123',
+    },
+  }).then((response) => {
+    cy.setCookie('_medusa_jwt', response.body.access_token);
+  });
 });
 
 Cypress.Commands.add('loginUi', (email, password) => {
@@ -35,6 +28,30 @@ Cypress.Commands.add('loginUi', (email, password) => {
   cy.getByTestId('sign-in-button').click();
   cy.url().should('include', '/us'); // very basic form of session validation for a successful login
   cy.title().should('include', 'Store of Excellence');
+});
+
+Cypress.Commands.add('clearCart', () => {
+  cy.request({
+    method: 'POST',
+    url: API_URL + '/store/carts',
+    // body: [
+    //   {
+    //     identifier: vehicleAgreementNo,
+    //     identifierType: 'AGREEMENT_NUMBER_CONTAINS',
+    //   },
+    // ],
+    // headers: {
+    //   Authorization: 'Bearer ' + window.localStorage.getItem('Bearer'),
+    //   accept: 'application/json',
+    //   'Content-Type': 'application/json',
+    // },
+  }).then((response) => {
+    if (response.body.length > 0) {
+      cy.log('cart cleared');
+    } else {
+      cy.log('cart not found');
+    }
+  });
 });
 
 Cypress.Commands.add('loginUiSession', (email, password) => {

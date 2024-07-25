@@ -3,7 +3,7 @@ const { defineConfig } = require('cypress');
 module.exports = defineConfig({
   reporter: 'mochawesome',
   e2e: {
-    baseUrl: 'https://coe-webstore.tdlbox.com/',
+    baseUrl: 'http://coe-webstore.tdlbox.com',
     viewportWidth: 1920,
     viewportHeight: 1080,
     env: {
